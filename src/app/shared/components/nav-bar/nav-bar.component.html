@@ -1,0 +1,15 @@
+<p-menubar [model]="items">
+
+  <ng-template pTemplate="end">
+    <div class="flex align-items-center justify-content-center">
+      <a  *ngIf="!token; else logout" pRipple class="p-menuitem-link flex align-items-center" routerLink="/auth/login">
+          <span  class="ml-2">Login</span>
+      </a>
+      <ng-template #logout>
+        <a pRipple class="p-menuitem-link flex align-items-center" (click)="onLogout()">
+          <span class="ml-2">Logout</span>
+        </a>
+      </ng-template>
+  </div>
+  </ng-template>
+</p-menubar>

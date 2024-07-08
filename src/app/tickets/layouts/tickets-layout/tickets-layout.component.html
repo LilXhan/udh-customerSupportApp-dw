@@ -1,0 +1,7 @@
+<nav-bar></nav-bar>
+<shared-title 
+  [title]="'Tickets'" 
+  [nameUser]="currentUser()?.first_name + ' ' + currentUser()?.last_name"
+  [userPermissions]="{'is_authenticated': currentUser()?.is_authenticated, 'is_staff': currentUser()?.is_staff, 'is_superuser': currentUser()?.is_superuser}"
+></shared-title>
+<router-outlet></router-outlet>
