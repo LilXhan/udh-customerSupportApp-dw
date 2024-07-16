@@ -15,6 +15,9 @@ import { DividerModule } from 'primeng/divider';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import { ButtonGroupModule } from 'primeng/buttongroup';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { DropdownModule } from 'primeng/dropdown';
 
 @NgModule({
   exports: [
@@ -30,7 +33,10 @@ import { ButtonGroupModule } from 'primeng/buttongroup';
     DividerModule,
     CardModule,
     ButtonModule,
-    ButtonGroupModule
+    ButtonGroupModule,
+    InputGroupModule,
+    InputGroupAddonModule,
+    DropdownModule
   ]
 })
 

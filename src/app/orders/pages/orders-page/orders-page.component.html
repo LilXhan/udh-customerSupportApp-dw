@@ -1,0 +1,109 @@
+<p-messages *ngIf="orders.length === 0; else pedidosTable" severity="info" >
+  <ng-template pTemplate>
+    <div class="ml-2">No tienes pedidos.</div>
+  </ng-template>
+</p-messages>
+
+<ng-template
+ #pedidosTable
+>
+<p-table [value]="orders" editMode="row" dataKey="id" [tableStyle]="{'min-width': '50rem'}">
+  <ng-template pTemplate="header">
+      <tr>
+          <th>#</th>
+          <th>Estado</th>
+          <th>Titulo</th>
+          <th>Descripcion</th>
+          <th>Total</th>
+          <th>Pedido Creado</th>
+          <th>
+            Acciones
+          </th>
+      </tr>
+  </ng-template>
+  
+  <ng-template pTemplate="body" let-order let-editing="editing" let-ri="rowIndex">
+    <tr [pEditableRow]="order">
+        <td>
+           {{ order.id }}
+        </td>
+        <td>
+          {{ order.estado }}
+        </td>
+        <td>
+            <p-cellEditor>
+                <ng-template pTemplate="input">
+                    <input 
+                        pInputText type="text" 
+                        [(ngModel)]="order.titulo" 
+                        required />
+                </ng-template>
+                <ng-template pTemplate="output">
+                    {{order.titulo}}
+                </ng-template>
+            </p-cellEditor>
+        </td>
+        <td>
+            <p-cellEditor>
+                <ng-template pTemplate="input">
+                    <input 
+                        pInputText 
+                        type="text" 
+                        [(ngModel)]="order.total" />
+                </ng-template>
+                <ng-template pTemplate="output">
+                    {{ order.total |  currency: 'PEN' }}
+                </ng-template>
+            </p-cellEditor>
+        </td>
+        <td>
+          {{ order.descripcion }}
+        </td>
+        <td>
+          {{ order.creado_el | date }}
+        </td>
+        <td>
+            <div class="flex align-items-center justify-content-center gap-2">
+                <button 
+                    *ngIf="!editing" 
+                    pButton 
+                    pRipple 
+                    type="button" 
+                    pInitEditableRow 
+                    icon="pi pi-pencil" 
+                    class="p-button-rounded p-button-text">
+                </button>
+                <button 
+                    *ngIf="editing" 
+                    pButton 
+                    pRipple 
+                    type="button" 
+                    pSaveEditableRow 
+                    icon="pi pi-check" 
+                    (click)="updateOrder(order.id, order)"
+                    class="p-button-rounded p-button-text p-button-success mr-2">
+                </button>
+                <button 
+                    *ngIf="editing" 
+                    pButton pRipple 
+                    type="button" 
+                    pCancelEditableRow 
+                    icon="pi pi-times"
+                    class="p-button-rounded p-button-text p-button-danger">
+                </button>
+                <button
+                  pButton
+                  pRipple
+                  type="button"
+                  class="p-button-rounded p-button-text p-button-danger"
+                  icon="pi pi-trash"
+                  (click)="removeOrder(order.id)"
+                >
+                </button>
+            </div>
+        </td>
+    </tr>
+  </ng-template>
+</p-table>
+</ng-template>
+

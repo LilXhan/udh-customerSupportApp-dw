@@ -1,2 +1,89 @@
+<p-messages *ngIf="tickets.length === 0; else ticketsTable" severity="info" >
+  <ng-template pTemplate>
+    <div class="ml-2">No hay tickets disponibles.</div>
+  </ng-template>
+</p-messages>
 
-<tickets-table [tickets]="tickets" ></tickets-table>
+<ng-template
+ #ticketsTable
+>
+<p-table [value]="tickets" [tableStyle]="{'min-width': '50rem'}">
+  <ng-template pTemplate="header">
+      <tr>
+          <th>#</th>
+          <th>Estado</th>
+          <th>Cliente</th>
+          <th>Agente a Cargo</th>
+          <th>Asunto</th>
+          <th>Canal</th>
+          <th>Fecha</th>
+          <th>Acciones</th>
+      </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-ticket>
+      <tr>
+          <td>
+            {{ ticket.id }}
+          </td>
+          <td>
+            <p-tag [value]="ticket.estado" severity="info" />
+          </td>
+          <td>
+             {{ ticket.userInfo?.first_name + ' ' + ticket.userInfo?.last_name}}
+          </td>
+          <td>
+            <span *ngIf="ticket.agente === null; else agentAssigned">
+              Sin asignar
+            </span>
+            <ng-template #agentAssigned>
+              <span>
+                {{ ticket.agentInfo?.first_name + ' ' + ticket.agentInfo?.last_name }}
+              </span>
+            </ng-template>
+          </td>
+          <td>
+              {{ ticket.asunto }}
+          </td>
+          <td>
+              {{ ticket.canal }}
+          </td>
+          <td>
+              {{ ticket.creado_el | date }}
+          </td>
+          <td *ngIf="currentUserAuthenticated()?.is_superuser || currentUserAuthenticated()?.is_staff; else isUserNormal">
+            <p-button 
+              size="small"  
+              [disabled]="ticket.agente !== null"
+              (click)="asignAgentToTicket(ticket, currentUserAuthenticated()!.id)"
+              icon="pi pi-check" 
+              [rounded]="true" 
+              [text]="true"
+              title="Asignarme"
+              severity="success"
+            />
+            <p-button
+              title="Ver más..."
+              size="small"
+              icon="pi pi-search" 
+              [rounded]="true" 
+              [text]="true"
+              [routerLink]="[ '/tickets/by', ticket.id]"
+            />
+
+          </td>
+          <ng-template #isUserNormal>
+            <td>
+              <p-button
+              title="Ver más..."
+              size="small"
+              icon="pi pi-search" 
+              [rounded]="true" 
+              [text]="true"
+              [routerLink]="[ '/tickets/by', ticket.id]"
+            />
+            </td>
+          </ng-template>
+      </tr>
+  </ng-template>
+</p-table>
+</ng-template>

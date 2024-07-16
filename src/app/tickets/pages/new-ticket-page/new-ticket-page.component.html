@@ -1,0 +1,39 @@
+<form
+  [formGroup]="myForm"
+  (ngSubmit)="createTicket()"
+>
+  <p-inputGroup>
+    <p-inputGroupAddon>
+      Asunto
+    </p-inputGroupAddon>
+    <input pInputText formControlName="asunto" />
+  </p-inputGroup>
+  <p-inputGroup>
+    <p-inputGroupAddon>Descripción</p-inputGroupAddon>
+  <input type="text" formControlName="descripcion" pInputText />
+</p-inputGroup>
+<p-inputGroup>
+  <p-inputGroupAddon>Canal</p-inputGroupAddon>
+  <input type="text" formControlName="canal" pInputText />
+</p-inputGroup>
+<p-inputGroup>
+  <p-inputGroupAddon>Grupo</p-inputGroupAddon>
+  <input type="text"   formControlName="grupo"  pInputText />
+</p-inputGroup>
+
+<div *ngIf="ordersCurrentUser.length <= 0; else dropdownPedidos">
+  <h3>No tienes ningun pedido para crear un ticket. Crea un pedido en el siguiente enlace:</h3>
+  <a routerLink="/orders/new-order">Crea aqui un pedido</a>
+</div>
+
+<ng-template #dropdownPedidos>
+  <p-dropdown 
+  [options]="ordersCurrentUser"
+  formControlName="pedido" 
+  optionLabel="titulo"
+  placeholder="Selecionar pedido"/>
+  <p-button type="submit" [disabled]="myForm.invalid">
+    Crear
+  </p-button>
+</ng-template>
+</form>

@@ -7,4 +7,5 @@ export interface User {
   is_staff:         boolean;
   is_superuser:     boolean;
   is_authenticated: boolean;
+  phone: string;
 }

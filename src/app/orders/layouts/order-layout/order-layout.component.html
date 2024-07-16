@@ -1,6 +1,6 @@
 <nav-bar></nav-bar>
 <shared-title 
-  [title]="'Tickets'" 
+  [title]="'Pedidos'" 
   [nameUser]="currentUser()?.first_name + ' ' + currentUser()?.last_name"
   [userPermissions]="{'is_authenticated': currentUser()?.is_authenticated, 'is_staff': currentUser()?.is_staff, 'is_superuser': currentUser()?.is_superuser}"
 ></shared-title>
@@ -8,5 +8,10 @@
   [routerLink]="'/tickets/new-ticket'"
   *ngIf="!currentUser()?.is_superuser && !currentUser()?.is_staff && router.url === '/tickets' ">
   Crear Ticket
+</p-button>
+<p-button
+  [routerLink]="'/orders/new-order'"
+  *ngIf="!currentUser()?.is_superuser && !currentUser()?.is_staff && router.url === '/orders' ">
+  Crear Pedido
 </p-button>
 <router-outlet></router-outlet>

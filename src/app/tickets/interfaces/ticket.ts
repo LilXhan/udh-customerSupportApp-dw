@@ -9,4 +9,5 @@ export interface Ticket {
   estado:         string;
   usuario:        number;
   agente: number;
+  pedido: number
 }

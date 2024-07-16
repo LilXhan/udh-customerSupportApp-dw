@@ -19,19 +19,21 @@ export class RegisterPageComponent {
     first_name: ['', [Validators.required, Validators.maxLength(255)]],
     last_name: ['', [Validators.required, Validators.maxLength(255)]],
     email: ['', [Validators.required, Validators.maxLength(255)]],
-    password: ['', [Validators.required, Validators.minLength(6)]]
+    password: ['', [Validators.required, Validators.minLength(6)]],
+    phone: ['', [Validators.required, Validators.maxLength(9)]]
   })
 
   register() {
 
-    const { username, first_name, last_name, email, password  } = this.myForm.value;
+    const { username, first_name, last_name, email, password, phone  } = this.myForm.value;
     
     const newUser = {
       username,
       first_name,
       last_name,
       email,
-      password
+      password,
+      phone
     }
 
     this.authService.register(newUser)

@@ -3,15 +3,12 @@ import { AuthService } from '../../../auth/services/auth.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-tickets-layout',
-  templateUrl: './tickets-layout.component.html',
-  styleUrl: './tickets-layout.component.css'
+  selector: 'app-order-layout',
+  templateUrl: './order-layout.component.html'
 })
-export class TicketsLayoutComponent {
-
+export class OrderLayoutComponent {
   private authService = inject(AuthService)
 
   public currentUser = computed(() => this.authService.currentUser())
   public router = inject(Router)
-
 }

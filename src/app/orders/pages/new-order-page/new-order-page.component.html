@@ -1,0 +1,22 @@
+<form
+  [formGroup]="myForm"
+  (ngSubmit)="createOrder()"
+>
+  <p-inputGroup>
+    <p-inputGroupAddon>
+      Titulo
+    </p-inputGroupAddon>
+    <input pInputText formControlName="titulo" />
+  </p-inputGroup>
+  <p-inputGroup>
+    <p-inputGroupAddon>Descripción</p-inputGroupAddon>
+  <input type="text" formControlName="descripcion" pInputText />
+</p-inputGroup>
+<p-inputGroup>
+  <p-inputGroupAddon>total</p-inputGroupAddon>
+  <input type="text" formControlName="total" pInputText />
+</p-inputGroup>
+<p-button type="submit" [disabled]="myForm.invalid">
+    Crear
+</p-button>
+</form>

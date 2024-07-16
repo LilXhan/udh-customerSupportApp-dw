@@ -14,6 +14,11 @@ const routes: Routes = [
     loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
   },
   {
+    path: 'orders',
+    canActivate: [isAuthenticatedGuard],
+    loadChildren: () => import('./orders/orders.module').then(m => m.OrdersModule)
+  },
+  {
     path: '**',
     redirectTo: 'auth'
   }

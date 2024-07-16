@@ -33,9 +33,12 @@ export class AuthService {
   login( email: string, password: string): Observable<boolean> {
 
     const url = `${this.baseUrl}/api/auth/login`;
+    const headers = new HttpHeaders({
+      'API-KEY': 'misuperapikey'
+    })
     const body = { email, password }
 
-    return this.http.post<LoginResponse>(url, body)
+    return this.http.post<LoginResponse>(url, body, { headers })
       .pipe(
         map( ({ refresh, access }) => this.setAuthentication(access) ),
         catchError( err =>  throwError( () => err.error.detail ))
@@ -44,21 +47,24 @@ export class AuthService {
 
   register(newUser: object): Observable<boolean> {
     const url = `${this.baseUrl}/api/auth/register`;
-    
-    return this.http.post(url, newUser)
+    const headers = new HttpHeaders({
+      'API-KEY': 'misuperapikey'
+    })
+    return this.http.post(url, newUser, { headers })
     .pipe(
       map( () => true ),
       catchError( err =>  throwError( () => err.error.detail ))
     );
   }
 
-  getInfoUserByToken(token: string): Observable<User> {
+  getInfoUserByToken(token: string): Observable<User | null> {
     const url = `${this.baseUrl}/api/auth/me`;
     const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
+      'Authorization': `Bearer ${token}`,
+      'API-KEY': 'misuperapikey'
     });
-    const options = { headers: headers }
-    return this.http.get<User>(url, options);
+    
+    return this.http.get<User>(url, { headers });
   }
 
 
@@ -72,11 +78,11 @@ export class AuthService {
     }
     
     const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
+      'Authorization': `Bearer ${token}`,
+      'API-KEY': 'misuperapikey'
     });
 
-    const options = { headers: headers }
-    return this.http.get<CheckTokenResponse>(url, options)
+    return this.http.get<CheckTokenResponse>(url, { headers })
       .pipe(
         map( _ => this.setAuthentication(token)),
         catchError(() => {

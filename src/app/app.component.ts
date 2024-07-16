@@ -14,6 +14,7 @@ export class AppComponent {
   private router = inject(Router)
 
   public finishedAuthCheck = computed<boolean>(() => {
+    console.log(this.authService.authStatus() )
 
     if (this.authService.authStatus() === AuthStatus.checking) {      
       return false;
@@ -30,13 +31,12 @@ export class AppComponent {
         return;
 
       case AuthStatus.authenticated:
-        this.router.navigateByUrl('/tickets/list');
+        this.router.navigateByUrl('/tickets/');
         return;
 
       case AuthStatus.notAuthenticated:
         this.router.navigateByUrl('/auth/login');
         return;
-
     }
     
   })

@@ -1,1 +1,67 @@
-<p>ticket-page works!</p>
+<p-card *ngIf="ticketFullInfo" header="Detalles" subheader="{{ ticketFullInfo.asunto }}">
+  <div class="p-grid">
+    <div class="p-col-12 p-md-4">
+      <b>ID:</b> {{ ticketFullInfo.id }}
+    </div>
+    <div class="p-col-12 p-md-4">
+      <b>Estado:</b> {{ ticketFullInfo.estado }}
+    </div>
+    <div class="p-col-12 p-md-4">
+      <b>Canal:</b> {{ ticketFullInfo.canal }}
+    </div>
+    <div class="p-col-12 p-md-4">
+      <b>Grupo:</b> {{ ticketFullInfo.grupo }}
+    </div>
+    <div class="p-col-12 p-md-4">
+      <b>Creado el:</b> {{ ticketFullInfo.creado_el | date:'medium' }}
+    </div>
+    <div class="p-col-12 p-md-4">
+      <b>Actualizado el:</b> {{ ticketFullInfo.actualizado_el | date:'medium' }}
+    </div>
+  </div>
+  
+  <p-divider></p-divider>
+  
+  <div class="p-grid">
+    <div class="p-col-12">
+      <b>Descripción:</b>
+      <p>{{ ticketFullInfo.descripcion }}</p>
+    </div>
+  </div>
+  
+  <p-divider></p-divider>
+  
+  <div class="p-grid" *ngIf="ticketFullInfo.userInfo">
+    <div class="p-col-12">
+      <h3>Usuario</h3>
+      <p><b>Nombre:</b> {{ ticketFullInfo.userInfo.first_name }} {{ ticketFullInfo.userInfo.last_name }}</p>
+      <p><b>Email:</b> {{ ticketFullInfo.userInfo.email }}</p>
+      <p><b>Username:</b> {{ ticketFullInfo.userInfo.username }}</p>
+      <p><b>Teléfono:</b> {{ ticketFullInfo.userInfo.phone }}</p>
+    </div>
+  </div>
+  
+  <p-divider *ngIf="ticketFullInfo.agentInfo"></p-divider>
+  
+  <div class="p-grid" *ngIf="ticketFullInfo.agentInfo">
+    <div class="p-col-12">
+      <h3>Agente</h3>
+      <p><b>Nombre:</b> {{ ticketFullInfo.agentInfo.first_name }} {{ ticketFullInfo.agentInfo.last_name }}</p>
+      <p><b>Email:</b> {{ ticketFullInfo.agentInfo.email }}</p>
+      <p><b>Username:</b> {{ ticketFullInfo.agentInfo.username }}</p>
+      <p><b>Teléfono:</b> {{ ticketFullInfo.agentInfo.phone }}</p>
+    </div>
+  </div>
+  
+  <p-divider *ngIf="ticketFullInfo.orderInfo"></p-divider>
+  
+  <div class="p-grid" *ngIf="ticketFullInfo.orderInfo">
+    <div class="p-col-12">
+      <h3>Pedido</h3>
+      <p><b>Título:</b> {{ ticketFullInfo.orderInfo.titulo }}</p>
+      <p><b>Descripción:</b> {{ ticketFullInfo.orderInfo.descripcion }}</p>
+      <p><b>Total:</b> {{ ticketFullInfo.orderInfo.total | currency }}</p>
+      <p><b>Estado:</b> {{ ticketFullInfo.orderInfo.estado }}</p>
+    </div>
+  </div>
+</p-card>
